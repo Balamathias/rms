@@ -1,7 +1,6 @@
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
-import { getSettings } from '../../services/apiSettings';
 import {useSettings, useUpdateSetting} from './useSettings';
 import { MiniPuffSpinner } from '../../ui/Spinner';
 
@@ -18,7 +17,7 @@ function UpdateSettingsForm() {
   const {updateSetting, isUpdating} = useUpdateSetting()
 
   function handleUpdateSetting(e, field) {
-    const { value } = e.target
+    const { value } = e.target || null
     updateSetting({[field]: value})
   }
 

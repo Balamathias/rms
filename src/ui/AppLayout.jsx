@@ -15,7 +15,7 @@ const Main = styled.main`
   overflow: scroll;
 `
 const Container = styled.div`
-  max-width: 150rem;
+  max-width: 120rem;
   margin: auto 0;
   display: flex;
   flex-direction: column;

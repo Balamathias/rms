@@ -1,9 +1,13 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { useBookings } from "./useCreateUpdateDeleteBooking";
+import { StyledPuffSpinner } from "../../ui/Spinner";
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings, isLoading } = useBookings();
+
+  if (isLoading) return <StyledPuffSpinner color="blue"/>
 
   return (
     <Menus>

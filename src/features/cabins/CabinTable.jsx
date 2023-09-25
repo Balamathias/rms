@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { StyledPuffSpinner } from '../../ui/Spinner'
-import ErrorFallback from '../../ui/ErrorFallback'
 import CabinRow from "./CabinRow";
 import { useGetCabins } from "./useCreateEditDeleteCabin";
 import { useSearchParams } from "react-router-dom";
+import Table from "../../ui/Table";
 
-const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
+// const Table = styled.div`
+//   border: 1px solid var(--color-grey-200);
 
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
-`;
+//   font-size: 1.4rem;
+//   background-color: var(--color-grey-0);
+//   border-radius: 7px;
+//   overflow: hidden;
+// `;
 
 const TableHeader = styled.header`
   display: grid;
@@ -40,21 +40,22 @@ function CabinTable() {
 
   // FILTERING
 
-  let filteredCabins
+  let filteredCabins = []
   const currentValueInUrl = searchParams.get('discount') || 'all'
 
-  if (currentValueInUrl === 'with-discount') filteredCabins = cabins.filter(cabin => cabin.discount > 0)
-  if (currentValueInUrl === 'no-discount') filteredCabins = cabins.filter(cabin => cabin.discount === 0)
+  if (currentValueInUrl === 'with-discount') filteredCabins = cabins?.filter(cabin => cabin.discount > 0)
+  if (currentValueInUrl === 'no-discount') filteredCabins = cabins?.filter(cabin => cabin.discount === 0)
   if (currentValueInUrl === 'all') filteredCabins = cabins
 
   // SORTING
 
-  const [field, direction] = searchParams.get('sort_by').split('-')
+  const sort_by = searchParams.get('sort_by') || 'name-asc'
+  const [field, direction] = sort_by.split('-')
   const modifier = direction === 'asc' ? 1 : -1
-  const sortedCabins = filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier)
+  const sortedCabins = filteredCabins?.sort((a, b) => (a[field] - b[field]) * modifier)
 
   return (
-    <Table role="table">
+    <Table role="table" columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
       <TableHeader role="row">
         <div></div>
         <div>Cabin</div>
@@ -63,7 +64,11 @@ function CabinTable() {
         <div>Discount</div>
         <div></div>
       </TableHeader>
-      {sortedCabins?.map(cabin => <CabinRow key={cabin.id} cabin={cabin} />)}
+      <Table.Body 
+        data={sortedCabins} 
+        render={cabin => <CabinRow 
+        key={cabin.id} 
+        cabin={cabin} />} />
     </Table>
   )
 }

@@ -63,7 +63,6 @@ function Modal({children}) {
 
   return (
     <ModalContext.Provider value={{openModalName, close, setOpenModalName}} >
-      {/* {cloneElement(children, {onClose: close})} */}
       {children}
     </ModalContext.Provider>
   )
@@ -88,8 +87,7 @@ function Window({ children, name }) {
       close(), cloneElement(children, {onClose: close})
       }}><FaTimes /></Button>
       <div>
-      {cloneElement(children, {onClose: close})}
-        {/* {children} */}
+        {cloneElement(children, {onClose: close})}
       </div>
     </StyledModal>
   </Overlay>, document.body

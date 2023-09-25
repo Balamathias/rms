@@ -1,31 +1,29 @@
 import styled from "styled-components";
-import Button from '../../ui/Button'
 import { formatCurrency } from '../../utils/helpers'
 import CreateCabinForm from "./CreateCabinForm";
-import { useState } from "react";
-import { MiniPuffSpinner } from "../../ui/Spinner";
 import { useCreateCabin, useDeleteCabin } from "./useCreateEditDeleteCabin";
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
-import { LoaderRow } from "../../ui/Row";
+import { HiPencil, HiSquare2Stack, HiTrash, HiEllipsisVertical } from 'react-icons/hi2'
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import Table from "../../ui/Table";
 
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
+// const TableRow = styled.div`
+//   display: grid;
+//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
+//   column-gap: 2.4rem;
+//   align-items: center;
+//   padding: 1.4rem 2.4rem;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+//   &:not(:last-child) {
+//     border-bottom: 1px solid var(--color-grey-100);
+//   }
+// `;
 
 export const Img = styled.img`
   display: block;
   width: 6.4rem;
-  border-radius: 4px;
+  border-radius: 3px;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
@@ -48,15 +46,23 @@ const Discount = styled.div`
   font-family: "Sono";
   font-weight: 500;
   color: var(--color-green-700);
-  `
+  `;
 
 
 function CabinRow({ cabin }) {
   
-  const { id: cabinId, image, name, maxCapacity, regularPrice, discount, description } = cabin
+  const {
+    id: cabinId, 
+    image, 
+    name, 
+    maxCapacity, 
+    regularPrice, 
+    discount, 
+    description 
+  } = cabin
   
   const { deleteCabin, isDeleting } = useDeleteCabin()
-  const {createCabin, isCreating} = useCreateCabin()
+  const {createCabin} = useCreateCabin()
 
   function handleDuplicate() {
       createCabin({
@@ -66,39 +72,40 @@ function CabinRow({ cabin }) {
   }
 
   return (
-    <>
-      <TableRow role="row">
+    <Menus>
+      <Table.Row role="row">
         <Img src={image} />
         <Cabin>{name}</Cabin>
         <Cabin>{maxCapacity}</Cabin>
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{formatCurrency(discount)}</Discount>
-        <LoaderRow as='div'>
-          <Button variation='secondary' size='small' onClick={handleDuplicate}>
-          {isCreating ? <LoaderRow><MiniPuffSpinner size={17} color='blue' /></LoaderRow>: <HiSquare2Stack /> }
-          </Button>
-          
+        <Menus.Toggle id={cabinId}>
+          <HiEllipsisVertical />
+        </Menus.Toggle>
+
         <Modal>
-          <Modal.Open opens="delete-confirm">
-            <Button variation='danger' size='small'>
-              <HiTrash />
-            </Button>
-          </Modal.Open>
-          <Modal.Window name="delete-confirm">
-            <ConfirmDelete resourceName={cabin?.name} disabled={isDeleting} onConfirm={() => deleteCabin(cabinId)} />
-          </Modal.Window>
-          
-          <Modal.Open opens='cabin-detail-form'>
-            <Button size='small' ><HiPencil /></Button>
-          </Modal.Open>
+          <Menus.List id={cabinId}>
+            <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>Duplicate</Menus.Button>
+            <Modal.Open opens='cabin-detail-form'>
+              <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+            </Modal.Open>
+            <Modal.Open opens="delete-confirm">
+              <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+            </Modal.Open>
+          </Menus.List>
+
           <Modal.Window name="cabin-detail-form">
             <CreateCabinForm cabin={cabin} />
           </Modal.Window>
+
+          <Modal.Window name="delete-confirm">
+            <ConfirmDelete resourceName={cabin?.name} disabled={isDeleting} onConfirm={() => deleteCabin(cabinId)} />
+          </Modal.Window>
         </Modal>
-        </LoaderRow>
-      </TableRow>
-    </>
+
+      </Table.Row>
+    </Menus>
   )
-}
+  }
 
 export default CabinRow

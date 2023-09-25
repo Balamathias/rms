@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-function useCloseCabinForm(handler) {
+function useCloseCabinForm(handler, scope=true) {
   const ref = useRef()
   useEffect(() => {
     function handleClick(e) {
@@ -8,10 +8,10 @@ function useCloseCabinForm(handler) {
         handler()
       }
     }
-    document.addEventListener("click", handleClick, true)
+    document.addEventListener("click", handleClick, scope)
 
-    return () => document.removeEventListener("click", handleClick, true)
-  }, [handler, ref])
+    return () => document.removeEventListener("click", handleClick, scope)
+  }, [handler, ref, scope])
   return  ref
 }
 
