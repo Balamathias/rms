@@ -1,11 +1,19 @@
 import SortBy from "../../ui/SortBy";
-import Filter from "../../ui/Filter";
 import TableOperations from "../../ui/TableOperations";
+import FilterBy from "../../ui/FilterBy";
+import { useSearchParams } from "react-router-dom";
 
 function BookingTableOperations() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  function handleChange(e) {
+    searchParams.set('sort_by', e.target.value)
+    setSearchParams(searchParams)
+  }
+
   return (
     <TableOperations>
-      <Filter
+      <FilterBy
         filterField="status"
         options={[
           { value: "all", label: "All" },
@@ -25,6 +33,7 @@ function BookingTableOperations() {
           },
           { value: "totalPrice-asc", label: "Sort by amount (low first)" },
         ]}
+        onChange={handleChange}
       />
     </TableOperations>
   );

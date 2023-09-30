@@ -22,6 +22,16 @@ const CommonRow = styled.div`
   }
 `;
 
+export const TestElement = styled.main`
+  background-color: var(--color-primary);
+  padding: 4.2rem;
+  display: flex;
+  flex-direction: ${props => props.direction};
+`
+TestElement.defaultProps = {
+  direction: 'row',
+}
+
 // const CommonRow = styled.div`
 //   display: grid;
 //   grid-template-columns: ${(props) => props.columns};
@@ -53,7 +63,7 @@ const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
 
-const Footer = styled.footer`
+const StyledFooter = styled.footer`
   background-color: var(--color-grey-50);
   display: flex;
   justify-content: center;
@@ -100,8 +110,15 @@ function Body({ data, render }) {
   </StyledBody>
 }
 
+function Footer({children}) {
+  return <StyledFooter>
+    {children}
+  </StyledFooter>
+}
+
 Table.Header = Header
 Table.Row = Row
 Table.Body = Body
+Table.Footer = Footer
 
 export default Table

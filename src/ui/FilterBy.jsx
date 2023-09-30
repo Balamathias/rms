@@ -10,7 +10,7 @@ export default function FilterBy({filterField, options}) {
     setSearchParams(searchParams)
   }
 
-  const currentValueInUrl = searchParams.get('discount') || 'all'
+  const currentValueInUrl = searchParams.get(filterField) || 'all'
 
   return (
     <StyledFilter>
