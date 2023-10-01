@@ -8,6 +8,7 @@ export default function FilterBy({filterField, options}) {
   function handleFilter(filterBy) {
     searchParams.set(filterField, filterBy)
     setSearchParams(searchParams)
+    if (searchParams.get('page')) searchParams.set('page', 1)
   }
 
   const currentValueInUrl = searchParams.get(filterField) || 'all'

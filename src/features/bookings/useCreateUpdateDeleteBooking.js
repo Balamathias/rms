@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { updateBooking as updateBookingApi, deleteBooking as deleteBookingApi, getBooking, getBookings, createBooking as createBookingApi } from "../../services/apiBookings"
 import { toast } from "react-hot-toast"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { PAGE_SIZE } from "../../utils/constants"
 
 
@@ -105,11 +105,14 @@ export const useUpdateBooking = () => {
 
 export const useDeleteBooking = () => {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const { mutate: deleteBooking, isLoading: isDeleting } = useMutation({
     mutationFn: deleteBookingApi,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['bookings']})
+      toast.success("Booking deleted successfully!")
+      navigate('/bookings')
     },
     onError: err => toast.error(err),
   })

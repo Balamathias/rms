@@ -110,9 +110,9 @@ function BookingDataBox({ booking }) {
     numNights,
     numGuests,
     cabinPrice,
-    extrasPrice,
+    extraPrice,
     totalPrice,
-    hasBreakfast,
+    hasBreakFast,
     observations,
     isPaid,
     guests: { fullName: guestName, email, country, countryFlag, nationalID },
@@ -160,16 +160,16 @@ function BookingDataBox({ booking }) {
         )}
 
         <DataItem icon={<HiOutlineCheckCircle />} label="Breakfast included?">
-          {hasBreakfast ? "Yes" : "No"}
+          {hasBreakFast ? "Yes" : "No"}
         </DataItem>
 
         <Price isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
-            {hasBreakfast &&
+            {hasBreakFast &&
               ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
-                extrasPrice
+                extraPrice
               )} breakfast)`}
           </DataItem>
 

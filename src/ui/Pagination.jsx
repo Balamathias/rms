@@ -84,9 +84,10 @@ function Pagination({count}) {
 
   return (
     <StyledPagination>
+      { isNaN(num_of_pages) &&
       <P>
-        Showing <b>{page}</b> of <b>{num_of_pages}</b> pages of <b>{count} items</b>.
-      </P>
+        Showing <b>{page}</b> of <b>{isNaN(num_of_pages) ? '' : num_of_pages }</b> pages of <b>{count} items</b>.
+      </P>}
       <Buttons>
         <PaginationButton onClick={prevPage} disabled={page === 1}>
           <HiChevronLeft />

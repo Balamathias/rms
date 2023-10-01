@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import LoginForm from '../features/authentication/LoginForm'
+import Logo from '../ui/Logo'
+import Heading from '../ui/Heading'
 
 const LoginLayout = styled.main`
   min-height: 100vh;
@@ -10,8 +13,16 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-50);
 `;
 
+const CenterHeading = styled(Heading)`
+  text-align: center;
+`;
+
 function Login() {
-  return <LoginLayout>Login</LoginLayout>;
+  return <LoginLayout>
+    <Logo />
+    <CenterHeading as='h2'>Welcome to Mathias Wild Oasis</CenterHeading>
+    <LoginForm />
+  </LoginLayout>;
 }
 
 export default Login;

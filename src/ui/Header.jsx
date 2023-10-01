@@ -1,4 +1,5 @@
 import { styled } from "styled-components"
+import Logout from "../features/authentication/Logout"
 
 const StyledHeader = styled.header`
   padding: 2.6rem 4rem 2.8rem;
@@ -8,7 +9,9 @@ const StyledHeader = styled.header`
 
 function Header() {
   return (
-    <StyledHeader>Header</StyledHeader>
+    <StyledHeader>
+      <Logout />
+    </StyledHeader>
   )
 }
 
