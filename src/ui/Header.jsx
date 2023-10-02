@@ -1,16 +1,22 @@
 import { styled } from "styled-components"
-import Logout from "../features/authentication/Logout"
+import HeaderMenu from "./HeaderMenu"
+import UserAvatar from "../features/authentication/UserAvatar"
 
 const StyledHeader = styled.header`
   padding: 2.6rem 4rem 2.8rem;
   border-bottom: var(--color-grey-100);
   background-color: var(--color-grey-0);
+
+  display: flex;
+  gap: 0.4;
+  justify-content: flex-end;
 `
 
 function Header() {
   return (
     <StyledHeader>
-      <Logout />
+      <UserAvatar />
+      <HeaderMenu />
     </StyledHeader>
   )
 }

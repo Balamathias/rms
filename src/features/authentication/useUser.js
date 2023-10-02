@@ -7,7 +7,7 @@ export function useUser() {
   const { data: user, isLoading } = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
-    onSuccess: (user) => queryClient.setQueriesData(['user', user])
+    onSuccess: (user) => queryClient.setQueryData(['user', user?.user])
   })
 
   return { user, isLoading, isAuthenticated: user?.role === 'authenticated'}

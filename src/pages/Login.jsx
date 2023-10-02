@@ -20,7 +20,7 @@ const CenterHeading = styled(Heading)`
 function Login() {
   return <LoginLayout>
     <Logo />
-    <CenterHeading as='h2'>Welcome to Mathias Wild Oasis</CenterHeading>
+    <CenterHeading as='h2'>Log in to your account.</CenterHeading>
     <LoginForm />
   </LoginLayout>;
 }

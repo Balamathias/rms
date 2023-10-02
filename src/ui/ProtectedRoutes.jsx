@@ -15,11 +15,11 @@ const FullPage = styled.div`
 function ProtectedRoutes({children}) {
   const navigate = useNavigate()
 
-  const {user, isLoading, isAuthenticated } = useUser()
+  const {isLoading, isAuthenticated } = useUser()
 
-  // useEffect(()=> {
+  useEffect(()=> {
     if (!isAuthenticated && !isLoading) navigate('/login')
-  // }, [user, navigate, isLoading, isAuthenticated])
+  }, [navigate, isLoading, isAuthenticated])
 
   if (isLoading) return <FullPage>
     <MiniPuffSpinner color="blue" />

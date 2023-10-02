@@ -23,7 +23,7 @@ export const useUpdateSetting = () => {
         queryKey: ['settings'],
       })
     },
-    onError: err => toast.error(err)
+    onError: err => toast.error(err?.message)
   })
 
   return { updateSetting, isUpdating }

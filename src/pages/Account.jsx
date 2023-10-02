@@ -1,21 +1,23 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
+import {Box} from '../ui/Box'
+import UpdateUserDataForm from '../features/authentication/UpdateUserDataForm'
 
 function Account() {
   return (
-    <>
+    <Box>
       <Heading as="h1">Update your account</Heading>
 
-      <Row>
+      <Box>
         <Heading as="h3">Update user data</Heading>
-        <p>Update user data form</p>
-      </Row>
+        <UpdateUserDataForm />
+      </Box>
 
-      <Row>
+      <Box>
         <Heading as="h3">Update password</Heading>
         <p>Update user password form</p>
-      </Row>
-    </>
+      </Box>
+    </Box>
   );
 }
 
